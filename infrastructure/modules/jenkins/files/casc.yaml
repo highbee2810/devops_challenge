@@ -1,0 +1,54 @@
+# Jenkins Configuration as Code - no manual setup in the UI.
+# ${VAR} placeholders are resolved from the container environment / /run/secrets at startup.
+jenkins:
+  systemMessage: "devops-challenge CI/CD - configured as code. Do not change settings in the UI."
+  numExecutors: 2
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${JENKINS_ADMIN_PASSWORD}"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  globalNodeProperties:
+    - envVars:
+        env:
+          - key: "AWS_REGION"
+            value: "${AWS_REGION}"
+          - key: "AWS_DEFAULT_REGION"
+            value: "${AWS_REGION}"
+          - key: "ECR_REPO_URL"
+            value: "${ECR_REPO_URL}"
+          - key: "ECS_CLUSTER"
+            value: "${ECS_CLUSTER}"
+          - key: "ECS_SERVICE"
+            value: "${ECS_SERVICE}"
+          - key: "APP_URL"
+            value: "${APP_URL}"
+          - key: "MIN_TASKS"
+            value: "${MIN_TASKS}"
+
+security:
+  globalJobDslSecurityConfiguration:
+    useScriptSecurity: true
+
+jobs:
+  - script: |
+      pipelineJob('devops-challenge-app') {
+        description('Build, test, scan, push and deploy the app to ECS Fargate')
+        definition {
+          cpsScm {
+            scm {
+              git {
+                remote { url('${REPO_URL}') }
+                branch('*/main')
+              }
+            }
+            scriptPath('Jenkinsfile')
+            lightweight(true)
+          }
+        }
+        triggers { scm('H/2 * * * *') }
+      }

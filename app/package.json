@@ -1,0 +1,15 @@
+{
+  "name": "devops-challenge-app",
+  "version": "1.0.0",
+  "description": "Sample service used to demonstrate a production-grade CI/CD pipeline on AWS",
+  "main": "src/server.js",
+  "private": true,
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

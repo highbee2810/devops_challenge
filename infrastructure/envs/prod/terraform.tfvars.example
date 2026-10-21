@@ -1,0 +1,9 @@
+region      = "eu-west-1"
+repo_url    = "https://github.com/<your-user>/devops-challenge.git"
+alarm_email = "you@example.com"
+
+# Optional: enable HTTPS (ACM certificate in the same region)
+# certificate_arn = "arn:aws:acm:eu-west-1:123456789012:certificate/xxxx"
+
+# Cost saver for demos: one NAT gateway instead of one per AZ
+# single_nat_gateway = true

@@ -1,0 +1,5 @@
+bucket       = "tfstate-<ACCOUNT_ID>-eu-west-1"
+key          = "devops-challenge/prod/terraform.tfstate"
+region       = "eu-west-1"
+encrypt      = true
+use_lockfile = true
