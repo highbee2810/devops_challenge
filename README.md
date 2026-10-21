@@ -16,7 +16,7 @@ A small Node.js service deployed to **AWS ECS Fargate** behind an **Application 
 | Observability | CloudWatch Logs, Container Insights, alarms, dashboard, SNS e-mail | JSON app logs, log-based error metric |
 | Container | Multi-stage Dockerfile | Tests run inside the build; non-root, read-only root FS at runtime |
 
-### CI/CD flow (`Jenkinsfile`)
+### CI/CD flow (`Jenkinsfile`) fully automated
 ```
 git push → Jenkins polls SCM (2 min) → Test → Build → Trivy scan → Push to ECR → Deploy to ECS → Smoke test
 ```
